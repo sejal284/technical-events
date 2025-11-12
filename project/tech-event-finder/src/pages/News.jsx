@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../lib/apiConfig";
 import Navbar from "../components/Navbar";
 import bgImage from "../assets/D.avif";
 
@@ -32,8 +33,8 @@ function News() {
       setLoading(true);
       setError(null);
       
-      // Update this URL to match your backend server
-      const response = await axios.get("http://localhost:5000/api/news");
+  // Update this URL to match your backend server
+  const response = await axios.get(`${API_BASE}/news`);
       
       if (response.data.success) {
         setNews(response.data.data);

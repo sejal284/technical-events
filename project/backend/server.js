@@ -13,13 +13,17 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+// Allow CORS from the frontend. In production, set FRONTEND_URL to your deployed frontend origin.
+app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
 app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/events", eventRoutes);  // ✅ Events route mounted here
+
+// Health route for platform checks
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 // Example protected route
 app.get("/api/profile", authMiddleware, (req, res) => {
@@ -36,5 +40,5 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

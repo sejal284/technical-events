@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bgImage from "../assets/reg.avif";
+import { API_BASE } from "../lib/apiConfig";
 
 function Register() {
   const navigate = useNavigate();
@@ -58,8 +59,8 @@ function Register() {
 
     try {
       const registerEndpoint = registrationType === "admin" 
-        ? "http://localhost:5000/api/auth/admin-register"
-        : "http://localhost:5000/api/auth/register";
+        ? `${API_BASE}/auth/admin-register`
+        : `${API_BASE}/auth/register`;
 
       const res = await fetch(registerEndpoint, {
         method: "POST",

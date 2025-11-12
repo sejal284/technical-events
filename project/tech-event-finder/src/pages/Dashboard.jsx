@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE } from "../lib/apiConfig";
 import { useNavigate } from "react-router-dom";
 import { Home, Calendar, Newspaper, User, Settings, LogOut, Plus, TrendingUp, BarChart3 } from "lucide-react";
 import bgImage from "../assets/D.avif";
@@ -143,7 +144,7 @@ function Dashboard() {
         return;
       }
 
-      const url = `http://localhost:5000/api/events/by-admin?${params.toString()}`;
+  const url = `${API_BASE}/events/by-admin?${params.toString()}`;
       console.log("Fetching admin analytics from:", url);
       
       const res = await fetch(url);
@@ -182,7 +183,7 @@ function Dashboard() {
         const params = new URLSearchParams();
         if (me.id) params.append("userId", me.id);
         if (me.email) params.append("email", me.email);
-        const res = await fetch(`http://localhost:5000/api/events/by-user?${params.toString()}`);
+  const res = await fetch(`${API_BASE}/events/by-user?${params.toString()}`);
         if (res.ok) {
           const data = await res.json();
           setMyEvents(data);
@@ -276,7 +277,7 @@ function Dashboard() {
         params.append("adminEmail", adminUser.email);
       }
 
-      const response = await fetch(`http://localhost:5000/api/events/${eventId}?${params.toString()}`, {
+  const response = await fetch(`${API_BASE}/events/${eventId}?${params.toString()}`, {
         method: 'DELETE'
       });
 

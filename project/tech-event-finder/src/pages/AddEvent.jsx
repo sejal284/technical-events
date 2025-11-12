@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, Clock } from "lucide-react";
 import bgImage from "../assets/D.avif";
+import { API_BASE } from "../lib/apiConfig";
 
 const categoryColors = {
   Workshop: "bg-indigo-500",
@@ -61,7 +62,7 @@ const handleSubmit = async (e) => {
     console.log("AddEvent: Event data being sent:", eventData);
 
     // POST request to backend
-    const response = await fetch("http://localhost:5000/api/events", {
+  const response = await fetch(`${API_BASE}/events`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eventData),

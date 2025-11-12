@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Calendar, Clock, MapPin, Users, Search, X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import bgImage from "../assets/D.avif";
+import { API_BASE } from "../lib/apiConfig";
 
 const categoryColors = {
   Workshop: "bg-indigo-500",
@@ -45,7 +46,7 @@ const ExploreEvents = () => {
         const params = new URLSearchParams();
         if (query) params.append("q", query);
         if (category) params.append("category", category);
-        const response = await fetch(`http://localhost:5000/api/events?${params.toString()}`);
+  const response = await fetch(`${API_BASE}/events?${params.toString()}`);
         const data = await response.json();
         setEvents(data);
         setLoading(false);
@@ -108,7 +109,7 @@ const ExploreEvents = () => {
         ...registrationForm
       };
       
-      const res = await fetch(`http://localhost:5000/api/events/${selectedEvent._id}/register`, {
+  const res = await fetch(`${API_BASE}/events/${selectedEvent._id}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)

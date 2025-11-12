@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import bgImage from "../assets/D.avif";
 import { Edit3, KeyRound, X, Save, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
+import { API_BASE } from "../lib/apiConfig";
 import Navbar from "../components/Navbar";
 
 function Profile() {
@@ -56,7 +57,7 @@ function Profile() {
       console.log("Sending profile update:", editForm);
       console.log("Token:", token ? "Present" : "Missing");
       
-      const response = await axios.put("http://localhost:5000/api/auth/profile", editForm, {
+  const response = await axios.put(`${API_BASE}/auth/profile`, editForm, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -99,7 +100,7 @@ function Profile() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put("http://localhost:5000/api/auth/change-password", {
+  const response = await axios.put(`${API_BASE}/auth/change-password`, {
         currentPassword: passwordForm.currentPassword,
         newPassword: passwordForm.newPassword
       }, {

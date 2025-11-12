@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bgImage from "../assets/bg-tech.jpg";
+import { API_BASE } from "../lib/apiConfig";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ function Login() {
 
     try {
       const loginEndpoint = loginType === "admin" 
-        ? "http://localhost:5000/api/auth/admin-login"
-        : "http://localhost:5000/api/auth/login";
+        ? `${API_BASE}/auth/admin-login`
+        : `${API_BASE}/auth/login`;
 
       const res = await fetch(loginEndpoint, {
         method: "POST",
